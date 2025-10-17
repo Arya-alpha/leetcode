@@ -6,21 +6,26 @@ package org.mdtjs.kmp;
 public class MatchStr {
 
     public static void main(String[] args) {
-        String haystack = "abeababeabf";
-        String needle = "acaceacacc";
+        String haystack = "ababaabbbbababbaabaaabaabbaaaabbabaabbbbbbabbaabbabbbabbbbbaaabaababbbaabbbabbbaabbbbaaabbababbabbbabaaabbaabbabababbbaaaaaaababbabaababaabbbbaaabbbabb";
+        String needle = "abbabbbabaa";
         int result = strStrKmp(haystack, needle);
         System.out.println(result);
     }
 
-    // KMP
     public static int strStrKmp(String haystack, String needle) {
+        int hsize = haystack.length();
+        int nsize = needle.length();
 
-        int[] next = new int[needle.length()];
-        // 当前位置最长匹配的长度
+        if (nsize > hsize) {
+            return -1;
+        }
+
+        // 计算前缀数组
+        int[] next = new int[nsize];
+        next[0] = 0;
         int j = 0;
-
-        for (int i = 1; i < needle.length(); i++) {
-            while (j > 0 && needle.charAt(i) != needle.charAt(j)) {
+        for (int i = 1; i < nsize; i++) {
+            while (j != 0 && needle.charAt(i) != needle.charAt(j)) {
                 j = next[j - 1];
             }
             if (needle.charAt(i) == needle.charAt(j)) {
@@ -28,9 +33,22 @@ public class MatchStr {
             }
             next[i] = j;
         }
-        // todo
 
-        return -1;
+        int n = 0;
+        int pos = -1;
+        for (int i = 0; i < hsize; i++) {
+            while (n > 0 && haystack.charAt(i) != needle.charAt(n)) {
+                n = next[n - 1];
+            }
+            if (haystack.charAt(i) == needle.charAt(n)) {
+                n++;
+            }
+            if (n > nsize - 1) {
+                pos = i - nsize + 1;
+                break;
+            }
+        }
+        return pos;
     }
 
     // 暴力解法
