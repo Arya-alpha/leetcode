@@ -4,32 +4,36 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 构造工具类
+ * Tree工具类
+ * 构建树时，为了用null表示空节点，val的类型选择Integer而不是int
  *
  * @author Arya
  * @version v1.0
  * @since v1.0
  */
-public class Tool {
+class Tool {
 
     public static TreeNode buildBinaryTree(Integer[] arr) {
-        if (arr == null) return null;
+        if (arr == null || arr.length == 0 || arr[0] == null) return null;
 
         TreeNode root = new TreeNode(arr[0]);
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         int index = 1;
-        while (index < arr.length) {
+
+        while (!queue.isEmpty() && index < arr.length) {
             // 当前要匹配的节点
             TreeNode current = queue.poll();
             // 取消空节点匹配
-            if (current != null) {
+            if (current == null) continue;
+
+            if (arr[index] != null) {
                 current.left = new TreeNode(arr[index]);
                 queue.offer(current.left);
             }
             index++;
 
-            if (current != null && index < arr.length) {
+            if (index < arr.length && arr[index] != null) {
                 current.right = new TreeNode(arr[index]);
                 queue.offer(current.right);
             }

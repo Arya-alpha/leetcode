@@ -4,7 +4,6 @@ import java.util.Objects;
 
 /**
  * 101.对称二叉树
- * 构建二叉树时，为了用null表示空节点，val的类型选择Integer而不是int
  *
  * @author Arya
  * @version v1.0
