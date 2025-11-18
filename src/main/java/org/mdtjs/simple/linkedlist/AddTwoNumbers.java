@@ -1,9 +1,9 @@
-package org.mdtjs.link;
+package org.mdtjs.simple.linkedlist;
 
 /**
  * 2.两数相加
  */
-public class AddTwo {
+public class AddTwoNumbers {
 
     public static void main(String[] args) {
         ListNode l1 = new ListNode(2);
